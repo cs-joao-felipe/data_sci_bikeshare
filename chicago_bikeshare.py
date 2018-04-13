@@ -1,8 +1,8 @@
-
 # coding: utf-8
 
 # Here goes the imports
 import csv
+
 import matplotlib.pyplot as plt
 
 # Let's read the data as a list
@@ -46,20 +46,22 @@ for sample in data_list[:20]:
 
 input("Press Enter to continue...")
 # TASK 3
-"""
-Function to extract a data set column as list
-Args:
-  data: Data set in question.
-  index: Column of the the given data set to extract.
-Returns:
-  List of values
 
-"""
-def column_to_list(data, index):
-    column_list = []
-    for sample in data:
-        column_list.append(sample[index])
-    return column_list
+
+def column_to_list(data: list, index: int) -> list:
+    """
+    Function to extract a data set column as list
+    Args:
+      data: Data set in question.
+      index: Column of the the given data set to extract.
+    Returns:
+      List of values
+
+    """
+    list_to_return = []
+    for entry in data:
+        list_to_return.append(entry[index])
+    return list_to_return
 
 
 # Let's check with the genders if it's working (only the first 20)
@@ -69,13 +71,13 @@ print(column_to_list(data_list, -2)[:20])
 # ------------ DO NOT CHANGE ANY CODE HERE ------------
 assert type(column_to_list(data_list, -2)) is list, "TASK 3: Wrong type returned. It should return a list."
 assert len(column_to_list(data_list, -2)) == 1551505, "TASK 3: Wrong lenght returned."
-assert column_to_list(data_list, -2)[0] == "" and column_to_list(data_list, -2)[1] == "Male", "TASK 3: The list doesn't match."
+assert column_to_list(data_list, -2)[0] == "" and column_to_list(data_list, -2)[1] == "Male", \
+    "TASK 3: The list doesn't match."
 # -----------------------------------------------------
 
 input("Press Enter to continue...")
 # Now we know how to access the features, let's count how many Males and Females the dataset have
 # TASK 4
-# TODO: Count each gender. You should not use a function to do that.
 male = 0
 female = 0
 for sample in data_list:
@@ -93,54 +95,61 @@ assert male == 935854 and female == 298784, "TASK 4: Count doesn't match."
 # -----------------------------------------------------
 
 input("Press Enter to continue...")
-# Why don't we creeate a function to do that?
+
+
+# Why don't we create a function to do that?
 # TASK 5
-"""
-Function to count data entries based on gender
-Args:
-  data_list: Data set in question.
-Returns:
-  List of genders count
-"""
-def count_gender(data_list):
-    male = 0
-    female = 0
-    for sample in data_list:
-        if sample[6] == 'Male':
-            male = male + 1
-        elif sample[6] == 'Female':
-            female = female + 1
-    return [male, female]
 
 
-    print("\nTASK 5: Printing result of count_gender")
-    print(count_gender(data_list))
+def count_gender(list_to_handle: list) -> tuple[str, str]:
+    """
+    Function to count data entries based on gender
+    Args:
+      list_to_handle: Data set in question.
+    Returns:
+      Tuple with genders count
+    """
+    male_count = 0
+    female_count = 0
+    for entry in list_to_handle:
+        if entry[6] == 'Male':
+            male_count = male_count + 1
+        elif entry[6] == 'Female':
+            female_count = female_count + 1
+    return male_count, female_count
 
-    # ------------ DO NOT CHANGE ANY CODE HERE ------------
-    assert type(count_gender(data_list)) is list, "TASK 5: Wrong type returned. It should return a list."
-    assert len(count_gender(data_list)) == 2, "TASK 5: Wrong lenght returned."
-    assert count_gender(data_list)[0] == 935854 and count_gender(data_list)[1] == 298784, "TASK 5: Returning wrong result!"
-    # -----------------------------------------------------
+
+print("\nTASK 5: Printing result of count_gender")
+print(count_gender(data_list))
+
+# ------------ DO NOT CHANGE ANY CODE HERE ------------
+assert type(count_gender(data_list)) is list, "TASK 5: Wrong type returned. It should return a list."
+assert len(count_gender(data_list)) == 2, "TASK 5: Wrong length returned."
+assert count_gender(data_list)[0] == 935854 and count_gender(data_list)[1] == 298784, "TASK 5: Returning wrong result!"
+# -----------------------------------------------------
 
 input("Press Enter to continue...")
+
+
 # Now we can count the users, which gender use it the most?
 # TASK 6
-"""
-Function to retur most popular gender.
-Args:
-  data_list: Data set in question.
-Returns:
-  Most popular gender.
-"""
-def most_popular_gender(data_list):
-    genders = count_gender(data_list)
+
+
+def most_popular_gender(list_to_handle: list) -> str:
+    """
+    Function to return most popular gender.
+    Args:
+      list_to_handle: Data set in question.
+    Returns:
+      Most popular gender.
+    """
+    genders = count_gender(list_to_handle)
     if genders[0] > genders[1]:
-        answer = 'Male'
+        return 'Male'
     elif genders[0] < genders[1]:
-        answer = 'Female'
+        return 'Female'
     else:
-        answer = 'Equal'
-    return answer
+        return 'Equal'
 
 
 print("\nTASK 6: Which one is the most popular gender?")
@@ -163,23 +172,29 @@ plt.title('Quantity by Gender')
 plt.show(block=True)
 
 input("Press Enter to continue...")
+
+
 # TASK 7
-"""
-Function to count data entries based on user types
-Args:
-  data_list: Data set in question.
-Returns:
-  List of user types count
-"""
-def count_types(data_list):
-    subs = 0
-    cust = 0
-    for sample in data_list:
-        if sample[5] == 'Subscriber':
-            subs = subs + 1
-        elif sample[5] == 'Customer':
-            cust = cust + 1
-    return [subs, cust]
+
+
+def count_types(list_to_handle: list) -> tuple[int, int]:
+    """
+    Function to count data entries based on user types
+    Args:
+      list_to_handle: Data set in question.
+    Returns:
+      List of user types count
+    """
+    subscriber = 0
+    customer = 0
+    for entry in list_to_handle:
+        if entry[5] == 'Subscriber':
+            subscriber = subscriber + 1
+        elif entry[5] == 'Customer':
+            customer = customer + 1
+    return subscriber, customer
+
+
 print("\nTASK 7: Check the chart!")
 types = ["Subscriber", "Customer"]
 quantity = count_types(data_list)
@@ -190,7 +205,6 @@ plt.xlabel('User Type')
 plt.xticks(y_pos, types)
 plt.title('Quantity by User Type')
 plt.show(block=True)
-
 
 input("Press Enter to continue...")
 # TASK 8
@@ -205,92 +219,92 @@ assert answer != "Type your answer here.", "TASK 8: Write your own answer!"
 # -----------------------------------------------------
 
 input("Press Enter to continue...")
+
+
 # Let's work with the trip_duration now. We cant get some values from it.
 # TASK 9
 
-"""
-Function to extract data entries trip durations
-Args:
-  data_list: Data set in question.
-Returns:
-  List of trip durations
-"""
-def get_trip_values(trip_list):
-    trip_values = []
-    for sample in trip_list:
-        trip_values.append(int(sample))
-    return trip_values
 
-"""
-Function to calculate trip durations mean value.
-Args:
-  int_list: Trip durations list.
-Returns:
-  Trip duration mean value
-"""
-def mean_trip_value(int_list):
+def get_trip_values(list_to_handle: list) -> list:
+    """
+    Function to convert data entries str to int
+    Args:
+      list_to_handle: Data set in question.
+    Returns:
+      List of trip durations
+    """
+    return list(map(int, list_to_handle))
+
+
+def mean_trip_value(int_list: list) -> float:
+    """
+    Function to calculate trip durations mean value.
+    Args:
+      int_list: Trip durations list.
+    Returns:
+      Trip duration mean value
+    """
     total_sum = 0.
-    for sample in int_list:
-        total_sum = total_sum + sample
+    for entry in int_list:
+        total_sum = total_sum + entry
     return total_sum / len(int_list)
 
-"""
-Function to calculate trip durations minimum value.
-Args:
-  int_list: Trip durations list.
-Returns:
-  Trip duration minimum value
-"""
-def min_trip_value(int_list):
+
+def min_trip_value(int_list: list) -> int:
+    """
+    Function to calculate trip durations minimum value.
+    Args:
+      int_list: Trip durations list.
+    Returns:
+      Trip duration minimum value
+    """
     min_value = int_list[0]
-    for sample in int_list:
-        if sample < min_value:
-            min_value = sample
+    for entry in int_list:
+        if entry < min_value:
+            min_value = entry
     return min_value
 
-"""
-Function to calculate trip durations maximum value.
-Args:
-  int_list: Trip durations list.
-Returns:
-  Trip duration maximum value
-"""
-def max_trip_value(int_list):
+
+def max_trip_value(int_list: list) -> int:
+    """
+    Function to calculate trip durations maximum value.
+    Args:
+      int_list: Trip durations list.
+    Returns:
+      Trip duration maximum value
+    """
     max_value = int_list[0]
-    for sample in int_list:
-        if sample > max_value:
-            max_value = sample
+    for entry in int_list:
+        if entry > max_value:
+            max_value = entry
     return max_value
 
-"""
-Function to calculate trip durations median value.
-Args:
-  int_list: Trip durations list.
-Returns:
-  Trip duration median value
-"""
+
 def median_trip_value(int_list):
-    median_value = 0.
+    """
+    Function to calculate trip durations median value.
+    Args:
+      int_list: Trip durations list.
+    Returns:
+      Trip duration median value
+    """
     sorted_list = int_list
     sorted_list.sort()
     list_len = len(sorted_list)
     if list_len % 2 == 0:
-        median_value = (sorted_list[list_len / 2] + sorted_list[list_len - 1]) / 2
+        return (sorted_list[list_len / 2] + sorted_list[list_len - 1]) / 2
     else:
-        median_value = sorted_list[round(list_len / 2)]
-    return median_value
+        return sorted_list[round(list_len / 2)]
 
-trip_list = column_to_list(data_list,2)
-trip_duration_values = get_trip_values(trip_list)
+
+trip_duration_values = get_trip_values(column_to_list(data_list, 2))
 min_trip = min_trip_value(trip_duration_values)
 max_trip = max_trip_value(trip_duration_values)
 mean_trip = mean_trip_value(trip_duration_values)
 median_trip = median_trip_value(trip_duration_values)
 
-
 print("\nTASK 9: Printing the min, max, mean and median")
 print("Min: ", min_trip, "Max: ", max_trip, "Mean: ", mean_trip, "Median: ", median_trip)
-
 
 # ------------ DO NOT CHANGE ANY CODE HERE ------------
 assert round(min_trip) == 60, "TASK 9: min_trip with wrong result!"
@@ -301,7 +315,7 @@ assert round(median_trip) == 670, "TASK 9: median_trip with wrong result!"
 
 input("Press Enter to continue...")
 # TASK 10
-start_stations = set(column_to_list(data_list,3))
+start_stations = set(column_to_list(data_list, 3))
 
 print("\nTASK 10: Printing start stations:")
 print(len(start_stations))
@@ -319,23 +333,24 @@ input("Press Enter to continue...")
 print("Will you face it?")
 answer = "yes"
 
-"""
-Function to extract a column set value and count it's items.
-Args:
-  column_list: List to be worked on.
-Returns:
-  A tuple containing the column set and it's respective entries count
-"""
-def count_items(column_list):
-    items_dict={}
-    keys = set(column_list)
+
+def count_items(list_to_handle: list) -> tuple[list, list]:
+    """
+    Function to extract a column set value and count it's items.
+    Args:
+      list_to_handle: List to be worked on.
+    Returns:
+      A tuple containing the column set and it's respective entries count
+    """
+    items_dict = {}
+    keys = set(list_to_handle)
     for x in keys:
         items_dict[x] = 0
 
     for x in column_list:
         items_dict[x] = items_dict[x] + 1
 
-    return items_dict.keys(), items_dict.values()
+    return list(items_dict.keys()), list(items_dict.values())
 
 
 if answer == "yes":
