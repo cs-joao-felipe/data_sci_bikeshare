@@ -101,7 +101,7 @@ input("Press Enter to continue...")
 # TASK 5
 
 
-def count_gender(list_to_handle: list) -> tuple[str, str]:
+def count_gender(list_to_handle: list) -> [str, str]:
     """
     Function to count data entries based on gender
     Args:
@@ -116,7 +116,7 @@ def count_gender(list_to_handle: list) -> tuple[str, str]:
             male_count = male_count + 1
         elif entry[6] == 'Female':
             female_count = female_count + 1
-    return male_count, female_count
+    return [male_count, female_count]
 
 
 print("\nTASK 5: Printing result of count_gender")
@@ -177,7 +177,7 @@ input("Press Enter to continue...")
 # TASK 7
 
 
-def count_types(list_to_handle: list) -> tuple[int, int]:
+def count_types(list_to_handle: list) -> [int, int]:
     """
     Function to count data entries based on user types
     Args:
@@ -192,7 +192,7 @@ def count_types(list_to_handle: list) -> tuple[int, int]:
             subscriber = subscriber + 1
         elif entry[5] == 'Customer':
             customer = customer + 1
-    return subscriber, customer
+    return [subscriber, customer]
 
 
 print("\nTASK 7: Check the chart!")
@@ -334,7 +334,7 @@ print("Will you face it?")
 answer = "yes"
 
 
-def count_items(list_to_handle: list) -> tuple[list, list]:
+def count_items(list_to_handle: list) -> [list, list]:
     """
     Function to extract a column set value and count it's items.
     Args:
